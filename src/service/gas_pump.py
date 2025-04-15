@@ -98,7 +98,7 @@ WETH_ABI = [
 class GasPump(Service):
 
     async def wrap_eth(self, semaphore: Semaphore, account: Account):
-        tag = f"{account} > Wrap ETH"
+        tag = f"{account} > Gas Pump > Wrap"
         await utils.delay(self._random_delay, tag)
 
         async with utils.web3_session(semaphore, account.proxy, tag) as w3:
@@ -117,7 +117,7 @@ class GasPump(Service):
             await utils.perform_transaction(w3, tx, account.private_key, tag)
 
     async def unwrap_eth(self, semaphore: Semaphore, account: Account):
-        tag = f"{account} > Unwrap ETH"
+        tag = f"{account} > Gas Pump > Unwrap"
         await utils.delay(self._random_delay, tag)
 
         async with utils.web3_session(semaphore, account.proxy, tag) as w3:
@@ -127,7 +127,9 @@ class GasPump(Service):
             )
 
             address = w3.eth.account.from_key(account.private_key).address
-            balance_wei = await contract.functions.balanceOf(address).call()
+            balance_wei = await contract.functions.balanceOf(
+                address,  # owner
+            ).call()
             if balance_wei == 0:
                 logger.bind(tag=tag).warning(f"No WETH balance")
                 return

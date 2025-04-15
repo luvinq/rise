@@ -23,6 +23,7 @@ async def main():
     # Services
     native = Native()
     gas_pump = GasPump()
+    inari = Inari()
 
     # Tasks
     tasks = []
@@ -33,6 +34,7 @@ async def main():
             lambda: native.send_eth(semaphore, account),
             lambda: gas_pump.wrap_eth(semaphore, account),
             lambda: gas_pump.unwrap_eth(semaphore, account),
+            lambda: inari.supply(semaphore, account),
         ]
 
         actual_tasks = [

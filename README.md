@@ -6,6 +6,7 @@
 
 - **Transfers:** Send ETH to yourself
 - **Gas Pump:** Wrap/Unwrap ETH, token approvals
+- **Inari:** Supply random tokens, token approvals
 - **...**
 
 
