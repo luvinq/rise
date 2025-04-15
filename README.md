@@ -9,6 +9,7 @@
 - **Inari:** Supply random tokens, token approvals
 - **...**
 
+<br>
 
 - **Multi-account Support:** Use many accounts with proxies
 - **Easy Setup:** Add, remove, and view accounts through a user-friendly CLI
