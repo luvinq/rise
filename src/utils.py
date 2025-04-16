@@ -14,9 +14,25 @@ from src.model import RiseChain
 #
 
 async def delay(delay_: float, tag: str):
-    if delay_ > 0:
-        logger.bind(tag=tag).info(f"Sleeping {delay_} seconds")
-        await asyncio.sleep(delay_)
+    if delay_ <= 0:
+        return
+
+    hours = delay_ // 3600
+    remaining = delay_ % 3600
+    minutes = remaining // 60
+    seconds = remaining % 60
+
+    time_parts = []
+    if hours > 0:
+        time_parts.append(f"{hours} hour{'s' if hours != 1 else ''}")
+    if minutes > 0:
+        time_parts.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
+    if seconds > 0 or not time_parts:
+        time_parts.append(f"{seconds} second{'s' if seconds != 1 else ''}")
+
+    time_str = " ".join(time_parts)
+    logger.bind(tag=tag).info(f"Sleeping {time_str}")
+    await asyncio.sleep(delay_)
 
 
 #
